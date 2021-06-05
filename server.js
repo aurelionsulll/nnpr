@@ -1,6 +1,7 @@
 const express = require('express');
+var net = require('net');
 const app = express();
-const port = 3000;
+const port = 3030;
 app.listen(port, () => {
 	console.log(
 		`Example app listening at http://localhost:${port}`
@@ -19,9 +20,9 @@ app.use(cors());
 const multipartMiddleware = multipart();
 
 cloudinary.config({
-	cloud_name: 'aurelion',
-	api_key: '383495862575111',
-	api_secret: 'bcIg-NrO_qHRkPi5uZNvGODi84I',
+	cloud_name: 'dsqjm743b',
+	api_key: '996246899883523',
+	api_secret: 'xCKEmAf_hDNaax7uZUPxzyUQQZ0',
 });
 cloudinary.image('image.jpg', {
 	transformation: [
@@ -51,7 +52,12 @@ app.post(
 			},
 			function (error, result) {
 				if (result.info.ocr.adv_ocr.status === 'complete') {
-					res.json(result); // result.info.ocr.adv_ocr.data[0].textAnnotations[0].description (more specific)
+					var t = result.info.ocr.adv_ocr.data[0].textAnnotations[0].description;
+					res.json(result); 
+					var s = require('net').Socket();
+					s.connect(8080);
+					s.write(t); 
+					s.end();			
 				}
 			}
 		);
